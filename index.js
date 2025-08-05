@@ -29,7 +29,6 @@ function startGame() {
 
 // Funcion for starting level
 function nextSequence() {
-  buttonsActive = false;
   levelNum += 1;
   clickCount = 0;
   userPattern = [];
@@ -39,7 +38,7 @@ function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4); //random value generation for making game pattern
   var randomChosenColor = buttonColors[randomNumber];
   gamePattern.push(randomChosenColor);
-  
+
   setTimeout(() => {
     showPattern();
   }, 300);
@@ -52,7 +51,7 @@ async function showPattern() {
     let color = gamePattern[i];
     flashingAnimation(color);
     playSound(color);
-    
+
     // Check if it's the last iteration
     if (i < gamePattern.length - 1) {
       await delay(delayTime);
@@ -82,6 +81,7 @@ function checkAnswer(levelNum) {
   if (userPattern[clickCount] === gamePattern[clickCount]) {
     clickCount += 1;
     if (clickCount >= levelNum) {
+      buttonsActive = false;
       correctAnswer();
       setTimeout(() => {
         nextSequence();
@@ -95,7 +95,7 @@ function checkAnswer(levelNum) {
 // function that is executed when wrong button is clicked
 function wrongAnswer() {
   buttonsActive = false;
-  
+
   playSound("wrong");
   $("body").addClass("wrong-answer");
   setTimeout(() => {
@@ -104,7 +104,7 @@ function wrongAnswer() {
 
   gameRunning = false;
   $("#level-title").html("Wrong guess! <br> Press any key to play again");
-  
+
   setTimeout(() => {
     $(document).on("keypress", startGame);
     buttonsActive = true;
