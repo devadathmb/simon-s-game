@@ -20,6 +20,7 @@ function main() {
 // Function for resetting values and starting the game from level 1
 function startGame() {
   gameRunning = true;
+  buttonsActive = false;
   levelNum = 0;
   gamePattern = [];
   userPattern = [];
@@ -55,6 +56,9 @@ async function showPattern() {
     // Check if it's the last iteration
     if (i < gamePattern.length - 1) {
       await delay(delayTime);
+    }
+    else{
+      await delay(300);
     }
   }
 
